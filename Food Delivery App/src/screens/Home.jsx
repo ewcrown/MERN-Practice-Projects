@@ -1,7 +1,4 @@
 const Home = () => {
-
-
-
     return (
         <>
             <div className="card" style={{'width': '18rem'}}>

@@ -1,8 +1,14 @@
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Login= () => {
+const SignUp = () => {
     let obj = [
+        {
+            htmlFor: "name",
+            label: "Name Here",
+            type: "text",
+            id: "fa-signup-name",
+        },
         {
             htmlFor: "email",
             label: "Email Here",
@@ -14,17 +20,21 @@ const Login= () => {
             label: "Password Here",
             type: "password",
             id: "fa-signup-password",
-        }
+        },
+        {
+            htmlFor: "location",
+            label: "Location Here",
+            type: "text",
+            id: "fa-signup-location",
+        },
     ];
 
     const [credentials, setCredentials] = useState({});
 
-    let navigate = useNavigate();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const resp = await fetch("http://localhost:5000/api/loginuser", {
+        const resp = await fetch("http://localhost:5000/api/createuser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,12 +44,7 @@ const Login= () => {
 
         const data = await resp.json();
 
-        if(!data.success) return alert('Error');
-        
-        localStorage.setItem('authToken', data.authToken)
-
-        navigate("/")
-
+        console.log(data);
     };
 
     const onChange = (event) => {
@@ -68,12 +73,12 @@ const Login= () => {
                 <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
-                <Link className="nav-link" to="/signup">
-                    Create User
+                <Link className="nav-link" to="/login">
+                    Already A User
                 </Link>
             </form>
         </div>
     );
 };
 
-export default Login;
+export default SignUp;
